@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.pleasanttours.myapplication">
-
+    package="com.screentox.rewards">
     <!-- Permissões necessárias para acessar estatísticas de uso e internet -->
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-
-
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,41 +27,67 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".OverlayScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-        <!-- Receiver para iniciar o serviço após reiniciar o dispositivo -->
-        <receiver android:enabled="true" android:exported="true" android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
-            android:name="com.pleasanttours.myapplication.BootReceiver"> <!-- Defina o nome da classe aqui -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" /> <!-- Receiver para iniciar o serviço após reiniciar o dispositivo -->
+        <activity
+            android:name=".MainMenuActivity"
+            android:exported="true" /> <!-- Receiver para iniciar o serviço após reiniciar o dispositivo -->
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"> <!-- Defina o nome da classe aqui -->
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
-            android:name="com.pleasanttours.myapplication.UnlockService"
+            android:name=".service.UnlockService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
-
-
         <receiver
-            android:name=".UnlockReceiver"
+            android:name=".receiver.UnlockReceiver"
             android:exported="true"
             android:permission="android.permission.RECEIVE_USER_PRESENT">
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
-        </receiver>
-        <!-- Atividade principal do aplicativo -->
-        <activity
-            android:name="com.pleasanttours.myapplication.MainActivity"
+        </receiver> <!-- Atividade principal do aplicativo -->
+        <receiver
+            android:name=".Widget"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-        </activity>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
     </application>
 
 </manifest>

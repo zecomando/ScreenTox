@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "582618220706",
+    "project_id": "screentox-b7590",
+    "storage_bucket": "screentox-b7590.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582618220706:android:90c84a5c564c78becb6ffb",
+        "android_client_info": {
+          "package_name": "com.screentox.rewards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_iVIAu5JokaNcCJSlljKQGbfxWSAM5Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
